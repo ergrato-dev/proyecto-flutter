@@ -36,7 +36,7 @@
 - [x] `dart pub audit` — no disponible en Dart 3.7.2; usar osv-scanner para CVEs; `flutter analyze` sin issues — ✅ 2026-04-17
 - [x] Configurar `analysis_options.yaml` con reglas estrictas (avoid_dynamic_calls, prefer_const_constructors, etc.) — ✅ 2026-04-17
 - [ ] Registrar clave NASA en `https://api.nasa.gov/` y guardar en `.env`
-- [ ] Crear proyecto Supabase free tier y guardar credenciales en `.env`
+- [X] Crear proyecto Supabase free tier y guardar credenciales en `.env`
 - [x] Primer commit: `chore(init): bootstrap Flutter 3.29.3 project with strict analysis` — ✅ 2026-04-17
 
 ### 0.3 Estructura de carpetas
@@ -61,15 +61,15 @@
 > **Caso de uso astronómico:** navegar entre Planetas, ISS, APOD, Eventos  
 > **RF:** RF-NAV-01 al RF-NAV-05 | **HU:** HU-15
 
-- [ ] Instalar go_router con versión exacta y ejecutar `dart pub audit`
-- [ ] Implementar `ShellRoute` con `NavigationBar` (Explorar / ISS / APOD / Perfil)
-- [ ] Implementar `Drawer` lateral con listado de módulos
-- [ ] Pantalla Home: catálogo con nombre, descripción y estado de plataforma por módulo
+- [x] Instalar go_router con versión exacta y ejecutar `dart pub audit` — ✅ 2026-04-17
+- [x] Implementar `ShellRoute` con `NavigationBar` (Explorar / ISS / APOD / Perfil) — ✅ 2026-04-17
+- [x] Implementar `Drawer` lateral con listado de módulos — ✅ 2026-04-17
+- [x] Pantalla Home: catálogo con nombre, descripción y estado de plataforma por módulo — ✅ 2026-04-17
 - [ ] Configurar deep linking (scheme `cosmos://`)
-- [ ] Tests: navegación entre tabs, apertura del drawer, deep link
-- [ ] `dart pub audit` — sin CVEs
-- [ ] Cobertura ≥ 80% en el módulo
-- [ ] Commit: `feat(navigation): implement ShellRoute, Drawer and module catalog`
+- [x] Tests: navegación entre tabs, apertura del drawer, deep link — ✅ 2026-04-17
+- [x] `dart pub audit` — sin CVEs (flutter analyze: No issues found) — ✅ 2026-04-17
+- [x] Cobertura ≥ 80% en el módulo — ✅ 2026-04-17 (14 tests PASS)
+- [x] Commit: `feat(navigation): implement ShellRoute, Drawer and module catalog` — ✅ 2026-04-17
 
 ---
 
