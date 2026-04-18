@@ -31,23 +31,34 @@ proyecto-flutter/
 
 ## Dockerfile — `.docker/Dockerfile`
 
+> **Nota de implementación:** en la imagen `ghcr.io/cirruslabs/flutter` el SDK
+> está en `/sdks/flutter` (no en `/opt/flutter`). El `flutter precache` debe
+> correr como root **antes** de crear el usuario no-root para evitar un
+> `chown -R` de ~1.3 GB que tarda varios minutos sin beneficio real. Solo se
+> necesita `chmod a+rw` en `bin/cache` para que el usuario no-root pueda
+> escribir los lockfiles y version stamps del CLI.
+
 ```dockerfile
 # ─── Imagen base oficial de Flutter SDK ────────────────────────────────────────
-# cirrusci/flutter:3.29.3 incluye Dart 3.7.2, pub y herramientas de análisis.
-# Se usa debian:bookworm-slim como base para mantener el tamaño controlado.
+# cirruslabs/flutter incluye Dart 3.7.2, pub y herramientas de análisis.
+# Flutter está instalado en /sdks/flutter dentro de esta imagen.
 FROM ghcr.io/cirruslabs/flutter:3.29.3
 
+# ─── Pre-caché del SDK (corre como root) ───────────────────────────────────────
+# Se ejecuta ANTES de crear el usuario no-root para evitar chown -R del SDK.
+# bin/cache necesita escritura para lockfiles y version stamps del CLI.
+RUN flutter precache --android --web \
+  --no-ios --no-macos --no-windows --no-linux --no-fuchsia \
+  && chmod -R a+rw /sdks/flutter/bin/cache
+
 # ─── Usuario no-root para reducir superficie de ataque ─────────────────────────
-# Flutter requiere un directorio home escribible para caché de pub.
+# Solo chown del HOME del usuario — NO del SDK completo.
 RUN useradd -m -s /bin/bash flutterdev \
-    && mkdir -p /home/flutterdev/.pub-cache \
-    && chown -R flutterdev:flutterdev /home/flutterdev
+  && mkdir -p /home/flutterdev/.pub-cache \
+  && chown -R flutterdev:flutterdev /home/flutterdev
 
 # ─── Directorio de trabajo ──────────────────────────────────────────────────────
 WORKDIR /app
-
-# ─── Pre-caché del SDK de Flutter para acelerar builds ─────────────────────────
-RUN flutter precache --no-ios --no-macos --no-windows --no-linux --no-fuchsia
 
 # ─── Script de entrada ──────────────────────────────────────────────────────────
 COPY .docker/entrypoint.sh /entrypoint.sh
@@ -56,6 +67,7 @@ RUN chmod +x /entrypoint.sh
 USER flutterdev
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD ["flutter", "run", "-d", "web-server", "--web-port", "8080", "--web-hostname", "0.0.0.0"]
 ```
 
 ---

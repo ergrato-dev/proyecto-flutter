@@ -14,21 +14,27 @@
 ## Fase 0 — Fundamentos del proyecto
 
 ### 0.1 Documentación base
-- [ ] `copilot-instructions.md` con tema astronómico, APIs y stack Flutter
-- [ ] `.github/instructions/` — modules, testing, supabase, astronomy-apis (adaptados a Flutter)
-- [ ] `.github/prompts/` — new-module, new-api-repository, add-tests, audit-dependencies (Flutter)
-- [ ] `docs/requirements/functional.md` — requisitos funcionales
-- [ ] `docs/requirements/non-functional.md` — requisitos no funcionales
-- [ ] `docs/requirements/user-stories.md` — historias de usuario
-- [ ] `docs/requirements/constraints.md` — restricciones
-- [ ] `.gitignore` incluyendo `.env`, `build/`, `.dart_tool/`, `.flutter-plugins`
+- [x] `copilot-instructions.md` con tema astronómico, APIs y stack Flutter — ✅ 2026-04-17
+- [x] `.github/instructions/` — modules, testing, supabase, astronomy-apis (adaptados a Flutter) — ✅ 2026-04-17
+- [x] `.github/prompts/` — new-module, new-api-repository, add-tests, audit-dependencies (Flutter) — ✅ 2026-04-17
+- [x] `docs/requirements/functional.md` — requisitos funcionales — ✅ 2026-04-17
+- [x] `docs/requirements/non-functional.md` — requisitos no funcionales — ✅ 2026-04-17
+- [x] `docs/requirements/user-stories.md` — historias de usuario — ✅ 2026-04-17
+- [x] `docs/requirements/constraints.md` — restricciones — ✅ 2026-04-17
+- [x] `.gitignore` incluyendo `.env`, `build/`, `.dart_tool/`, `.flutter-plugins` — ✅ 2026-04-17
 
 ### 0.2 Inicialización del proyecto
-- [ ] `flutter create --org com.example --platforms android,web,ios cosmos_flutter`
+- [x] `.docker/Dockerfile` y `.docker/entrypoint.sh` — imagen `cosmos-flutter:dev` construida — ✅ 2026-04-17
+  > Corrección aplicada: `flutter precache` corre como root antes de crear el usuario
+  > no-root; solo `chmod a+rw /sdks/flutter/bin/cache` (evita `chown -R` de 1.3 GB).
+  > Flutter en cirruslabs está en `/sdks/flutter`, no en `/opt/flutter`.
+- [x] `docker-compose.yml` con servicios: dev, test, analyze, build_apk, build_web — ✅ 2026-04-17
+- [x] `.env.example` con las variables requeridas (sin valores reales) — ✅ 2026-04-17
+- [x] `docs/setup/` — guías Docker y local — ✅ 2026-04-17
+- [ ] `flutter create --org com.ergrato.cosmos --platforms android,web,ios cosmos_flutter`
 - [ ] Verificar que `pubspec.yaml` no tiene `^` ni `>=` (corregir si los hay)
 - [ ] `dart pub audit` — sin CVEs reportados
 - [ ] Configurar `analysis_options.yaml` con `very_good_analysis` (o equivalente estricto)
-- [ ] Crear `.env.example` con las variables requeridas (sin valores reales)
 - [ ] Registrar clave NASA en `https://api.nasa.gov/` y guardar en `.env`
 - [ ] Crear proyecto Supabase free tier y guardar credenciales en `.env`
 - [ ] Primer commit: `chore(init): bootstrap Flutter 3.29.3 project with strict analysis`
