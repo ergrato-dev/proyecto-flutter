@@ -36,8 +36,9 @@ dependencies:
   go_router: 14.8.1
 
   # Gestión de estado reactiva; base de todos los providers de la app.
-  # Nota: 3.3.x requiere Flutter ≥3.32 (scheduleNewFrame). Fijado a 3.2.1 para Flutter 3.29.3.
-  flutter_riverpod: 3.2.1
+  # Nota: toda la serie 3.x requiere Flutter ≥3.30 (scheduleFrameCallback(scheduleNewFrame:)).
+  # Fijado a 2.6.1 (última 2.x) que es compatible con Flutter 3.29.3 / Dart 3.7.2.
+  flutter_riverpod: 2.6.1
 
 dev_dependencies:
   flutter_test:
