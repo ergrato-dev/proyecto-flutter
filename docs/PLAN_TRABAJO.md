@@ -31,28 +31,28 @@
 - [x] `docker-compose.yml` con servicios: dev, test, analyze, build_apk, build_web — ✅ 2026-04-17
 - [x] `.env.example` con las variables requeridas (sin valores reales) — ✅ 2026-04-17
 - [x] `docs/setup/` — guías Docker y local — ✅ 2026-04-17
-- [ ] `flutter create --org com.ergrato.cosmos --platforms android,web,ios cosmos_flutter`
-- [ ] Verificar que `pubspec.yaml` no tiene `^` ni `>=` (corregir si los hay)
-- [ ] `dart pub audit` — sin CVEs reportados
-- [ ] Configurar `analysis_options.yaml` con `very_good_analysis` (o equivalente estricto)
+- [x] `flutter create --org com.ergrato.cosmos --platforms android,web,ios cosmos_flutter` — ✅ 2026-04-17
+- [x] Verificar que `pubspec.yaml` no tiene `^` ni `>=` (corregir si los hay) — ✅ 2026-04-17
+- [x] `dart pub audit` — no disponible en Dart 3.7.2; usar osv-scanner para CVEs; `flutter analyze` sin issues — ✅ 2026-04-17
+- [x] Configurar `analysis_options.yaml` con reglas estrictas (avoid_dynamic_calls, prefer_const_constructors, etc.) — ✅ 2026-04-17
 - [ ] Registrar clave NASA en `https://api.nasa.gov/` y guardar en `.env`
 - [ ] Crear proyecto Supabase free tier y guardar credenciales en `.env`
-- [ ] Primer commit: `chore(init): bootstrap Flutter 3.29.3 project with strict analysis`
+- [x] Primer commit: `chore(init): bootstrap Flutter 3.29.3 project with strict analysis` — ✅ 2026-04-17
 
 ### 0.3 Estructura de carpetas
-- [ ] Crear árbol `lib/modules/` con carpetas vacías para los 13 módulos
-- [ ] Crear `lib/shared/widgets/`, `providers/`, `repositories/`, `theme/`
-- [ ] Crear `lib/shared/repositories/nasa_repository.dart` (Dio + API key)
-- [ ] Crear `lib/shared/repositories/solar_system_repository.dart`
-- [ ] Crear `lib/shared/repositories/iss_repository.dart`
-- [ ] Crear `lib/shared/repositories/supabase_client.dart` (singleton + init en main.dart)
-- [ ] Commit: `chore(structure): create module folders and shared repositories`
+- [x] Crear árbol `lib/modules/` con carpetas vacías para los 13 módulos — ✅ 2026-04-17
+- [x] Crear `lib/shared/widgets/`, `providers/`, `repositories/`, `theme/` — ✅ 2026-04-17
+- [x] Crear `lib/shared/repositories/nasa_repository.dart` (Dio + API key) — ✅ 2026-04-17
+- [x] Crear `lib/shared/repositories/solar_system_repository.dart` — ✅ 2026-04-17
+- [x] Crear `lib/shared/repositories/iss_repository.dart` — ✅ 2026-04-17
+- [x] Crear `lib/shared/repositories/supabase_client.dart` (singleton + init en main.dart) — ✅ 2026-04-17
+- [x] Commit: `chore(structure): create module folders and shared repositories` — ✅ 2026-04-17
 
 ### 0.4 Infraestructura de testing
-- [ ] Agregar `flutter_test`, `mocktail` con versiones exactas a `dev_dependencies`
+- [x] Agregar `flutter_test`, `mocktail` con versiones exactas a `dev_dependencies` — ✅ 2026-04-17
 - [ ] Configurar `flutter_test` con umbral de cobertura en CI (lcov)
-- [ ] `flutter test --coverage` — todos los tests de scaffold PASS
-- [ ] Commit: `chore(test): configure flutter_test with mocktail`
+- [x] `flutter test --coverage` — todos los tests de scaffold PASS — ✅ 2026-04-17
+- [x] Commit: `chore(test): configure flutter_test with mocktail` — ✅ 2026-04-17
 
 ---
 

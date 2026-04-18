@@ -21,7 +21,7 @@
 proyecto-flutter/
 ├── .docker/
 │   ├── Dockerfile          ← imagen de desarrollo Flutter
-│   └── entrypoint.sh       ← pre-start: flutter pub get + dart pub audit
+│   └── entrypoint.sh       ← pre-start: flutter pub get + flutter pub outdated
 ├── docker-compose.yml      ← servicio principal + servicio test
 ├── .env                    ← variables locales (NO en git)
 └── .env.example            ← plantilla de variables
@@ -78,17 +78,29 @@ CMD ["flutter", "run", "-d", "web-server", "--web-port", "8080", "--web-hostname
 #!/bin/bash
 set -e
 
-# ─── Instalar dependencias si pubspec.lock no coincide con el contenedor ────────
+# ─── Instalar/sincronizar dependencias ────────────────────────────────
 echo "→ flutter pub get"
 flutter pub get
 
-# ─── Auditoría de CVEs antes de servir ──────────────────────────────────────────
-echo "→ dart pub audit"
-dart pub audit
+# ─── Verificar dependencias desactualizadas (informacional, no bloqueante) ────
+# Nota: dart pub audit no está disponible en Dart 3.7.2.
+# Para auditoría de CVEs usar osv-scanner externamente:
+#   docker run -v "$(pwd)":/src ghcr.io/google/osv-scanner:latest --lockfile /src/pubspec.lock
+echo "→ flutter pub outdated (informacional)"
+flutter pub outdated --no-dependency-overrides 2>/dev/null || true
 
-# ─── Ejecutar el comando pasado al contenedor ────────────────────────────────────
+echo "→ Entorno listo"
+
+# ─── Ejecutar el comando pasado al contenedor (CMD o docker run <comando>) ──────
 exec "$@"
 ```
+
+> **Nota:** `dart pub audit` no existe en Dart 3.7.2. Para auditoría de CVEs
+> se recomienda `osv-scanner` de Google:
+> ```bash
+> docker run --rm -v "$(pwd)":/src ghcr.io/google/osv-scanner:latest \
+>   scan --lockfile /src/pubspec.lock
+> ```
 
 ---
 
@@ -185,7 +197,8 @@ docker compose exec flutter_dev bash
 # Dentro del contenedor:
 flutter analyze                        # análisis estático
 dart format --set-exit-if-changed lib/ test/   # formateo
-dart pub audit                         # auditoría CVE
+# Para auditoría CVE usar osv-scanner externamente (dart pub audit no disponible en Dart 3.7.2):
+# docker run --rm -v "$(pwd)":/src ghcr.io/google/osv-scanner:latest scan --lockfile /src/pubspec.lock
 flutter build apk --release            # APK de Android (requiere Android SDK)
 flutter build web --release            # bundle Web de producción
 ```
@@ -227,4 +240,4 @@ gracias al volumen montado.
 - **Nunca** pasar la clave NASA ni las credenciales Supabase como `ARG` en el Dockerfile
   (quedarían en el historial de capas). Usar siempre `--env-file` o `env_file:` en Compose.
 - El volumen `flutter_pub_cache` es local y no se sube al registry; no contiene secretos.
-- `dart pub audit` en el entrypoint bloquea el arranque si hay CVEs moderados o superiores.
+- Para auditoría de CVEs usar `osv-scanner` de Google contra `pubspec.lock`. Ver sección Entrypoint.
