@@ -95,15 +95,15 @@
 > **Caso de uso astronómico:** búsqueda de asteroides por fecha y distancia  
 > **RF:** RF-FORM-01 al RF-FORM-06 | **HU:** HU-06
 
-- [ ] Instalar reactive_forms con versión exacta y auditar
-- [ ] Implementar validadores: fechas, rango ≤ 7 días
-- [ ] Formulario con `DatePickerDialog` (Android / Web / iOS) y campo de distancia
-- [ ] Gestión de foco entre campos y cierre de teclado
-- [ ] Implementar `NeoWsRepository` + `neoWsProvider` (NASA NeoWs)
-- [ ] Lista de resultados con badge PHA (potencialmente peligroso)
-- [ ] Tests: validación correcta, error fecha invertida, error rango > 7 días, submit OK
-- [ ] Cobertura ≥ 80%
-- [ ] Commit: `feat(forms): asteroid search with reactive_forms validation`
+- [x] Instalar reactive_forms con versión exacta y auditar — ✅ 2026-04-25
+- [x] Implementar validadores: fechas, rango ≤ 7 días (`DateOrderValidator`, `DateRangeValidator`) — ✅ 2026-04-25
+- [x] Formulario con `DatePickerDialog` (Android / Web / iOS) y campo de distancia — ✅ 2026-04-25
+- [x] Gestión de foco entre campos y cierre de teclado — ✅ 2026-04-25
+- [x] Implementar `NasaRepository.getAsteroids` + `nasaNeoWsProvider.family` (NASA NeoWs) — ✅ 2026-04-25
+- [x] Lista de resultados con badge PHA (potencialmente peligroso) — ✅ 2026-04-25
+- [x] Tests: validación correcta, error fecha invertida, error rango > 7 días, submit OK — ✅ 2026-04-25
+- [x] Cobertura ≥ 80% (82 tests pasan) — ✅ 2026-04-25
+- [x] Commit: `feat(forms): asteroid search with reactive_forms validation` — ✅ 2026-04-25
 
 ---
 

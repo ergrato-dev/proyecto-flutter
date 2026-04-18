@@ -41,6 +41,8 @@ dependencies:
   flutter_riverpod: 2.6.1
   # Cliente HTTP con interceptores, caché y manejo de errores. Usado por todos los repositorios.
   dio: 5.9.2
+  # Formularios reactivos tipados con validadores personalizados. Módulo forms/.
+  reactive_forms: 18.2.2
 
 dev_dependencies:
   flutter_test:

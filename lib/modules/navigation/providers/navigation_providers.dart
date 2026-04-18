@@ -1,3 +1,4 @@
+import 'package:cosmos_flutter/modules/forms/screens/asteroid_search_form_screen.dart';
 import 'package:cosmos_flutter/modules/lists/screens/bodies_screen.dart';
 import 'package:cosmos_flutter/modules/navigation/navigation_data.dart';
 import 'package:cosmos_flutter/modules/navigation/screens/apod_placeholder_screen.dart';
@@ -47,7 +48,12 @@ GoRouter _buildRouter() => GoRouter(
             ),
             // Rutas de módulos pendientes — se llenarán en fases posteriores.
             ...kModuleCatalog
-                .where((m) => !kTabRoutes.contains(m.route) && m.route != '/lists')
+                .where(
+                  (m) =>
+                      !kTabRoutes.contains(m.route) &&
+                      m.route != '/lists' &&
+                      m.route != '/forms',
+                )
                 .map(
                   (m) => GoRoute(
                     path: m.route,
@@ -57,6 +63,10 @@ GoRouter _buildRouter() => GoRouter(
             GoRoute(
               path: '/lists',
               builder: (context, state) => const BodiesScreen(),
+            ),
+            GoRoute(
+              path: '/forms',
+              builder: (context, state) => const AsteroidSearchFormScreen(),
             ),
           ],
         ),
