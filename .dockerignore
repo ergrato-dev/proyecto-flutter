@@ -1,0 +1,47 @@
+# ─── Control de versiones ──────────────────────────────────────────────────────
+.git/
+.gitignore
+.github/
+
+# ─── Documentación (no necesaria en la imagen) ────────────────────────────────
+docs/
+README.md
+*.md
+
+# ─── Secretos y entorno local ──────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.key
+*.keystore
+*.jks
+google-services.json
+GoogleService-Info.plist
+
+# ─── Build artifacts del host (evitar copiar basura al contexto) ───────────────
+build/
+.dart_tool/
+.pub-cache/
+.pub/
+coverage/
+
+# ─── Android — artefactos locales del host ────────────────────────────────────
+**/android/.gradle/
+**/android/captures/
+**/android/local.properties
+
+# ─── iOS ───────────────────────────────────────────────────────────────────────
+**/ios/Pods/
+**/ios/DerivedData/
+**/ios/.symlinks/
+
+# ─── IDEs ──────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.iml
+
+# ─── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+
+# ─── Tests (se ejecutan en el servicio flutter_test, no en la imagen base) ─────
+test/

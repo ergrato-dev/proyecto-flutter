@@ -1,0 +1,99 @@
+# ─── CosmosFlutter — Docker Compose ───────────────────────────────────────────
+# Uso rápido:
+#   docker compose up flutter_dev          → servidor Web en localhost:8080
+#   docker compose run --rm flutter_test   → tests con cobertura
+#   docker compose run --rm flutter_dev bash → shell interactiva
+# ──────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ── Servidor de desarrollo Flutter Web ────────────────────────────────────────
+  flutter_dev:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: cosmos-flutter:dev
+    container_name: cosmos_flutter_dev
+    working_dir: /app
+    volumes:
+      # Código fuente montado — el hot reload funciona a través del volumen
+      - .:/app
+      # Caché de pub aislada del host (reproducibilidad garantizada)
+      - flutter_pub_cache:/home/flutterdev/.pub-cache
+    ports:
+      # Flutter Web accesible en http://localhost:8080
+      - "8080:8080"
+    env_file:
+      # Las variables NASA_API_KEY, SUPABASE_URL y SUPABASE_ANON_KEY
+      # se inyectan en runtime, nunca se hornean en la imagen.
+      - .env
+    stdin_open: true
+    tty: true
+
+  # ── Tests con cobertura ────────────────────────────────────────────────────────
+  # Uso: docker compose run --rm flutter_test
+  flutter_test:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: cosmos-flutter:dev
+    container_name: cosmos_flutter_test
+    working_dir: /app
+    volumes:
+      - .:/app
+      - flutter_pub_cache:/home/flutterdev/.pub-cache
+    env_file:
+      - .env
+    command: flutter test --coverage
+    profiles:
+      - test
+
+  # ── Análisis estático y formateo ───────────────────────────────────────────────
+  # Uso: docker compose run --rm flutter_analyze
+  flutter_analyze:
+    image: cosmos-flutter:dev
+    container_name: cosmos_flutter_analyze
+    working_dir: /app
+    volumes:
+      - .:/app
+      - flutter_pub_cache:/home/flutterdev/.pub-cache
+    command: >
+      sh -c "dart analyze &&
+             dart format --set-exit-if-changed lib/ test/"
+    profiles:
+      - ci
+
+  # ── Build APK release ──────────────────────────────────────────────────────────
+  # Uso: docker compose run --rm flutter_build_apk
+  flutter_build_apk:
+    image: cosmos-flutter:dev
+    container_name: cosmos_flutter_build_apk
+    working_dir: /app
+    volumes:
+      - .:/app
+      - flutter_pub_cache:/home/flutterdev/.pub-cache
+    env_file:
+      - .env
+    command: flutter build apk --release --dart-define-from-file=.env
+    profiles:
+      - build
+
+  # ── Build Web release ──────────────────────────────────────────────────────────
+  # Uso: docker compose run --rm flutter_build_web
+  flutter_build_web:
+    image: cosmos-flutter:dev
+    container_name: cosmos_flutter_build_web
+    working_dir: /app
+    volumes:
+      - .:/app
+      - flutter_pub_cache:/home/flutterdev/.pub-cache
+    env_file:
+      - .env
+    command: flutter build web --release --dart-define-from-file=.env
+    profiles:
+      - build
+
+volumes:
+  # Caché de dependencias pub — compartida entre todos los servicios.
+  # Persiste entre reinicios; eliminar con: docker compose down -v
+  flutter_pub_cache:
