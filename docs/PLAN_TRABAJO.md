@@ -78,15 +78,15 @@
 > **Caso de uso astronómico:** catálogo de planetas, lunas y asteroides  
 > **RF:** RF-LIST-01 al RF-LIST-05 | **HU:** HU-01, HU-02
 
-- [ ] Implementar `SolarSystemRepository` (Solar System OpenData `/bodies`)
-- [ ] Implementar `bodiesProvider` + `bodyDetailProvider` (Riverpod FutureProvider)
-- [ ] `ListView.builder` con virtualización para ≥ 500 elementos
-- [ ] `CustomScrollView` + `SliverList` agrupado por tipo (planeta / satélite / asteroide / cometa)
-- [ ] Pantalla de detalle con todos los campos (RF-LIST-04)
-- [ ] Caché 24h + indicador offline
-- [ ] Tests: loading, data, error, detalle
-- [ ] Cobertura ≥ 80%
-- [ ] Commit: `feat(lists): solar system catalog with ListView.builder and SliverList`
+- [x] Implementar `SolarSystemRepository` (Solar System OpenData `/bodies`) — ✅ 2026-04-22
+- [x] Implementar `bodiesProvider` + `bodyDetailProvider` (Riverpod FutureProvider) — ✅ 2026-04-22
+- [x] `ListView.builder` con virtualización para ≥ 500 elementos — ✅ 2026-04-22
+- [x] `CustomScrollView` + `SliverList` con filtros por tipo (planeta / satélite / asteroide / cometa) — ✅ 2026-04-22
+- [x] Pantalla de detalle con todos los campos (RF-LIST-04) — ✅ 2026-04-22
+- [x] Caché 24h + indicador offline (reintentar) — ✅ 2026-04-22
+- [x] Tests: loading, data, error, filtros, detalle — ✅ 2026-04-22
+- [x] Cobertura ≥ 80% (54 tests pasan) — ✅ 2026-04-22
+- [x] Commit: `feat(lists): solar system catalog with ListView.builder and SliverList` — ✅ 2026-04-22
 
 ---
 

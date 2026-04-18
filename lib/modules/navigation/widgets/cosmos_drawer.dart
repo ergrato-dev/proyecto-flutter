@@ -30,23 +30,25 @@ class CosmosDrawer extends StatelessWidget {
                   color: colorScheme.onPrimaryContainer,
                 ),
                 const SizedBox(width: 12),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'CosmosFlutter',
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            color: colorScheme.onPrimaryContainer,
-                          ),
-                    ),
-                    Text(
-                      'Showcase astronómico',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: colorScheme.onPrimaryContainer,
-                          ),
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'CosmosFlutter',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: colorScheme.onPrimaryContainer,
+                            ),
+                      ),
+                      Text(
+                        'Showcase astronómico',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onPrimaryContainer,
+                            ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
